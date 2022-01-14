@@ -1,6 +1,9 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+// Initialize MSW
+initialize();
 
 // Fixes issues with storybook and next/image
 const OriginalNextImage = NextImage.default;
@@ -15,6 +18,10 @@ Object.defineProperty(NextImage, 'default', {
     />
   ),
 });
+
+export const decorators = [
+  mswDecorator,
+]
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
